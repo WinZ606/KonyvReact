@@ -1,23 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react'
+import Konyv from './components/Konyv';
+import { konyvLista } from './adat';
+import Konyvek from './components/Konyvek';
+import Kosar from './components/Kosar';
 
 function App() {
+  const [kosarLista,setKosarLista]=useState([])
+  function kosarba(adat){
+    const sl=[...kosarLista]
+    sl.push(konyvLista[adat])
+    setKosarLista([...sl])
+    console.table(sl)
+  }
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>Könyvek</p>
       </header>
+      <section className="kosar">
+        <Kosar lista={kosarLista}/>
+      </section>
+      <article>
+        <Konyvek konyvLista={konyvLista} kosarba={kosarba}/>
+      </article>
     </div>
   );
 }
